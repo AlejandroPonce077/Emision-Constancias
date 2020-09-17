@@ -1,0 +1,184 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+        <title>Zero</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../script/ajax_generate_code.js"></script>
+        <script src="../script/ajax_generate_pdff.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
+
+          <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+   <!-- Bootstrap 4.4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  
+
+  <!-- MiniColors -->
+  <script src="../js/jquery.minicolors.js"></script>
+  <link rel="stylesheet" href="../css/jquery.minicolors.css">
+
+
+  <script src="../easyQR/src/easy.qrcode.js"></script>
+
+
+  <script>
+    $(document).ready( function() {
+
+      $('.demo').each( function() {
+        //
+        // Dear reader, it's actually very easy to initialize MiniColors. For example:
+        //
+        //  $(selector).minicolors();
+        //
+        // The way I've done it below is just for the demo, so don't get confused
+        // by it. Also, data- attributes aren't supported at this time...they're
+        // only used for this demo.
+        //
+        $(this).minicolors({
+          control: $(this).attr('data-control') || 'hue',
+          defaultValue: $(this).attr('data-defaultValue') || '',
+          format: $(this).attr('data-format') || 'hex',
+          keywords: $(this).attr('data-keywords') || '',
+          inline: $(this).attr('data-inline') === 'true',
+          letterCase: $(this).attr('data-letterCase') || 'lowercase',
+          opacity: $(this).attr('data-opacity'),
+          position: $(this).attr('data-position') || 'bottom',
+          swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+          change: function(value, opacity) {
+            if( !value ) return;
+            if( opacity ) value += ', ' + opacity;
+            if( typeof console === 'object' ) {
+              console.log(value);
+            }
+          },
+          theme: 'bootstrap'
+        });
+
+      });
+
+    });
+  </script>
+
+    </head>
+
+    <body class="">
+
+
+      <header>
+
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container d-flex justify-content-between">
+            <h5 class="my-0 mr-md-auto font-weight-normal text-white">Emision de Constancias USECAD</h5>
+
+            </button>
+          </div>
+        </div>
+      </header>
+
+      
+        <div class="container" >
+            <div class="container">     
+                <div class="row">
+                    <h2>Generar Constancia</h2>
+                </div>
+                <div class="row">
+                <div class="col-md-6">
+                    <form class="form-horizontal" method="post" id="codeForm" onsubmit="return false">
+
+                      <!-- Nombre -->
+                      <div class="form-group">
+                        <label class="control-label">Nombre : </label>
+                          <div class="input-group" >
+                            <input class="form-control col-xs-1" id="contentName" type="text" required="required" placeholder="Nombre">
+                            <input class="form-control col-xs-1" id="contentAPaterno" type="text" required="required" placeholder="A Paterno">
+                            <input class="form-control col-xs-1" id="contentAMaterno" type="text" required="required" placeholder="A Materno">
+                          </div>
+                      </div>
+
+                      <!-- Telefono -->
+                      <div class="form-group">
+                          <label class="control-label">Teléfono : </label>
+                          <input class="form-control col-xs-1" id="contentNumber" type="text" required="required" placeholder="Teléfono">
+                      </div>
+                      <!-- Email -->
+                      <div class="form-group">
+                          <label class="control-label">Email : </label>
+                          <input class="form-control col-xs-1" id="contentEmail" type="Email" required="required" placeholder="Email">
+                      </div>
+                      <!-- Direccion -->
+                      <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                          <label class="custom-control-label" for="customCheck1">Dirección (Opcional)</label>
+                        </div>
+
+                        <div id="content" style="display: none;">
+                          <input class="form-control col-xs-1" id="contentCalle" type="text" placeholder="Calle">
+                          <input class="form-control col-xs-1" id="contentCiudad" type="text" placeholder="Ciudad">
+                          <input class="form-control col-xs-1" id="contentColonia" type="text" placeholder="Colonia">
+                          <input class="form-control col-xs-1" id="contentCodigoP" type="text" placeholder="Código Postal">
+                          <input class="form-control col-xs-1" id="contentPais" type="text" placeholder="País">
+                        </div>
+                      </div>
+                      <!-- ECC -->
+                      <div class="form-group">
+                          <label class="control-label">Nivel del código (ECC) : </label>
+                          <select class="form-control col-xs-10" id="ecc" >
+                              <option value="H">H - Mejor</option>
+                              <option value="M">M</option>
+                              <option value="Q">Q</option>
+                              <option value="L">L - Peor</option>                         
+                          </select>
+                      </div>
+                      <!-- Tamaño -->
+                      <div class="form-group">
+                          <label class="control-label">Tamaño : </label>
+                          <input type="number" min="1" max="10" step="1" class="form-control col-xs-10" id="size" value="5" required="required">
+                      </div>
+                      <!-- Color -->
+                      <div class="form-group">
+                        <label for="hue-demo">Color</label>
+                        <input type="text" id="color" class="form-control demo" data-control="hue" value="#000000" required="required">
+                      </div>
+                      <!-- Logo -->
+                      <div class="form-group">
+                        <label class="control-label">Logo (Opcional)</label>
+                        <input type="file" id="cargarImg" class="form-control-file" accept="image/png, image/jpeg" name="">
+                      </div>
+
+                      <!-- Botones -->
+
+                      <div class="form-group">
+                          <label class="control-label"></label>
+                          <input type="submit" name="submit" id="generar-btn" class="btn btn-primary" value="Generar Código" />
+                          <input type="button" name="nuevo"  style = "display:none" class="btn btn-success" id="nuevo-btn" value="Nuevo"/>
+                          <input type="button" name="descargar"  style = "display:none" class="btn btn-warning" id="download-btn" value="Descargar"/>
+                          <input type="button" name="descargar"  style = "display:none" class="btn btn-danger" id="pdf-btn" value="PDF"/>
+                          
+                      </div>
+
+                    </form>
+
+                </div>
+                    <!-- Seccion donde aparece el QR -->
+                    <div class="col-md-6">
+                        <div id="areaImprimir" class="showQRCode" ></div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </body>
+</html>
